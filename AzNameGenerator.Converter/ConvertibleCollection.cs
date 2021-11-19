@@ -12,7 +12,7 @@ namespace AzNameGenerator.Converter
 
         public List<IEntity> Input { get; set; }
 
-        public List<string> Items { get; set; }
+        public List<string> Items { get; private set; }
 
         public void Convert()
         {
@@ -54,6 +54,11 @@ namespace AzNameGenerator.Converter
         {
             Input ??= new List<IEntity>();
             Input.Add(entity);
+        }
+
+        public string GetOutput()
+        {
+            return string.Join("-", Items);
         }
     }
 }

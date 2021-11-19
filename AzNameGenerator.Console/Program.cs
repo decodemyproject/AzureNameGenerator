@@ -9,6 +9,7 @@ using AzNameGenerator.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Spectre.Console;
+using Environment = AzNameGenerator.Models.Environment;
 
 namespace AzNameGenerator.Console
 {
@@ -18,7 +19,18 @@ namespace AzNameGenerator.Console
         private static IRepository<AzureResource> _azureResourceRepository;
         private static IRepository<Models.Environment> _environmentRepository;
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        public static Task Main(string[] args)
+        {
+            using var host = CreateHostBuilder(args).Build();
+
+            EnableWarpDrive(host.Services);
+
+            StartGenerator();
+
+            return Task.CompletedTask;
+        }
+
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((_, services) =>
                                        services
@@ -27,18 +39,9 @@ namespace AzNameGenerator.Console
                                            .AddScoped<IRepository<Models.Environment>,
                                                EnvironmentRepository>());
 
-        public static Task Main(string[] args)
+        private static void StartGenerator()
         {
-            using IHost host = CreateHostBuilder(args).Build();
-            EnableWarpDrive(host.Services);
-            StartGenerator();
-            return Task.CompletedTask;
-        }
-
-        static void StartGenerator()
-        {
-            var rule = new Rule();
-            AnsiConsole.Write(rule);
+            WriteHorizontalRule();
 
             var azureRegions = _azureRegionRepository.GetAll();
             var azureResources = _azureResourceRepository.GetAll();
@@ -46,43 +49,31 @@ namespace AzNameGenerator.Console
 
             var collection = new ConvertibleCollection();
 
-            var organization =
-                RequestInput(questionName: "Please enter your organization name:",
-                             questionShortCode: "Please enter your organization short form:",
-                             questionLongCode: "Please enter your organization long form:");
-            collection.Add(organization);
+            AskOrganization(collection);
+            WriteHorizontalRule();
 
-            var selectedResource =
-                RequestSelection(
-                    question: "Please select a resource:",
-                    azureResources);
-            collection.Add(selectedResource);
+            AskResource(azureResources, collection);
+            WriteHorizontalRule();
 
-            var productName = RequestInput(
-                questionName: "Please enter the product name:",
-                questionShortCode: "Please enter the product short form:",
-                questionLongCode: "Please enter the product long form:");
-            collection.Add(productName);
+            AskProductName(collection);
+            WriteHorizontalRule();
 
-            var selectedRegion =
-                RequestSelection(
-                    "Please select a region:",
-                    azureRegions);
+            AskRegion(azureRegions, collection);
+            WriteHorizontalRule();
 
-            collection.Add(selectedRegion);
-
-            var environment = RequestSelection("Please select the environment:", environments);
-            collection.Add(environment);
+            AskEnvironment(environments, collection);
+            WriteHorizontalRule();
 
             collection.UseLowercase();
-            collection.UseShortFormat();
-            collection.Convert();
-            var lowercaseShort = string.Join("-", collection.Items);
+            var lowercaseShort = GetShortFormat(collection);
+            var lowercaseLong = GetLongFormat(collection);
 
-            collection.UseLongFormat();
-            collection.Convert();
-            var lowercaseLong = string.Join("-", collection.Items);
+            WriteTable(lowercaseShort, lowercaseLong);
+            System.Console.ReadKey();
+        }
 
+        private static void WriteTable(string lowercaseShort, string lowercaseLong)
+        {
             // Create a table
             var table = new Table();
 
@@ -97,10 +88,142 @@ namespace AzNameGenerator.Console
 
             // Render the table to the console
             AnsiConsole.Write(table);
-            System.Console.ReadKey();
+        }
+
+        private static void WriteHorizontalRule()
+        {
+            var rule = new Rule();
+            AnsiConsole.Write(rule);
+        }
+
+        private static void AskOrganization(ConvertibleCollection collection)
+        {
+            var organization =
+                RequestInput(
+                    questionShortCode: "Please enter your organization short form:",
+                    questionLongCode: "Please enter your organization long form:");
+            collection.Add(organization);
+        }
+
+        private static void AskResource(AzureResource[] azureResources, ConvertibleCollection collection)
+        {
+            var selectedResource =
+                RequestSelection(
+                    question: "Please select a resource:",
+                    azureResources);
+            collection.Add(selectedResource);
+        }
+
+        private static void AskProductName(ConvertibleCollection collection)
+        {
+            var productName = RequestInput(
+                questionShortCode: "Please enter the short format to use for the product identifier:",
+                questionLongCode: "Please enter the product long format to use for the product identifier:");
+            collection.Add(productName);
+        }
+
+        private static void AskRegion(AzureRegion[] azureRegions, ConvertibleCollection collection)
+        {
+            var selectedRegion =
+                RequestSelection(
+                    "Please select a region:",
+                    azureRegions);
+
+            collection.Add(selectedRegion);
+        }
+
+        private static void AskEnvironment(Environment[] environments, ConvertibleCollection collection)
+        {
+            var environment = RequestSelection("Please select the environment:", environments);
+            collection.Add(environment);
+        }
+
+        private static string GetShortFormat(ConvertibleCollection collection)
+        {
+            collection.UseShortFormat();
+            collection.Convert();
+
+            var lowercaseShort = collection.GetOutput();
+            return lowercaseShort;
+        }
+
+        private static string GetLongFormat(ConvertibleCollection collection)
+        {
+            collection.UseLongFormat();
+            collection.Convert();
+
+            var lowercaseLong = collection.GetOutput();
+            return lowercaseLong;
         }
 
         private static void EnableWarpDrive(IServiceProvider serviceProvider)
+        {
+            WriteBanner();
+
+            // Synchronous
+            AnsiConsole.Status()
+                .Start("Initializing warp drive...", ctx =>
+                {
+                    InitializeServices(serviceProvider);
+
+                    WriteLogMessage(ctx);
+
+                    System.Console.ReadKey();
+                });
+
+            WriteTable("[green]mcrs[/][grey]-stapp-devtest-euw-001.azurewebsites.net/[/]",
+                       "[green]microsoft[/][grey]-stapp-devtest-euw-001.azurewebsites.net/[/]");
+        }
+
+        private static void WriteLogMessage(StatusContext ctx)
+        {
+            AnsiConsole.MarkupLine("[grey]LOG:[/] Starting gravimetric field displacement manifold...");
+            Thread.Sleep(500);
+
+            AnsiConsole.MarkupLine("[grey]LOG:[/] Warming up deuterium chamber...");
+            Thread.Sleep(500);
+
+            AnsiConsole.MarkupLine("[grey]LOG:[/] Generating antideuterium...");
+            Thread.Sleep(500);
+
+            AnsiConsole.MarkupLine("[grey]LOG:[/] Unfolding left warp nacelle...");
+
+            ctx.Status("Unfolding warp nacelles...");
+            ctx.Spinner(Spinner.Known.Dots5);
+            Thread.Sleep(500);
+
+            AnsiConsole.MarkupLine("[grey]LOG:[/] Left warp nacelle [green]online[/]...");
+            AnsiConsole.MarkupLine("[grey]LOG:[/] Unfolding right warp nacelle...");
+            Thread.Sleep(500);
+
+            AnsiConsole.MarkupLine("[grey]LOG:[/] Right warp nacelle [green]online[/]...");
+            ctx.Status("Generating warp bubble");
+            Thread.Sleep(500);
+
+            AnsiConsole.MarkupLine("[grey]LOG:[/] Enabling interior dampening..");
+            ctx.Spinner(Spinner.Known.Clock);
+            ctx.Status("Performing safety checks...");
+
+            Thread.Sleep(500);
+            AnsiConsole.MarkupLine("[grey]LOG:[/] Interior dampening [green]activated[/]...");
+            AnsiConsole.MarkupLine("[grey]LOG:[/] Preparing for warp...");
+            Thread.Sleep(500);
+
+            ctx.Spinner(Spinner.Known.Star);
+            for (var phase = 0M; phase <= 9.8M; phase += 1.4M)
+            {
+                Thread.Sleep(150);
+                ctx.Status($"Warp {phase}...");
+            }
+
+            ctx.Spinner(Spinner.Known.Grenade);
+            ctx.SpinnerStyle(Style.Parse("green"));
+            ctx.Status("Cruising at warp 9.8...");
+            Thread.Sleep(1000);
+            ctx.Status("Press any key to start");
+        }
+
+        private static void WriteBanner()
         {
             AnsiConsole.Write(
                 new FigletText("Welcome to the")
@@ -116,86 +239,16 @@ namespace AzNameGenerator.Console
                 new FigletText("tool")
                     .RightAligned()
                     .Color(Color.Blue));
+        }
 
-            // Synchronous
-            AnsiConsole.Status()
-                .Start("Initializing warp drive...", ctx =>
-                {
-                    using var serviceScope = serviceProvider.CreateScope();
-                    var provider = serviceScope.ServiceProvider;
+        private static void InitializeServices(IServiceProvider serviceProvider)
+        {
+            using var serviceScope = serviceProvider.CreateScope();
+            var provider = serviceScope.ServiceProvider;
 
-                    _azureRegionRepository = provider.GetRequiredService<IRepository<AzureRegion>>();
-                    _azureResourceRepository = provider.GetRequiredService<IRepository<AzureResource>>();
-                    _environmentRepository = provider.GetRequiredService<IRepository<Models.Environment>>();
-                    AnsiConsole.MarkupLine("[grey]LOG:[/] Starting gravimetric field displacement manifold...");
-                    Thread.Sleep(500);
-
-                    AnsiConsole.MarkupLine("[grey]LOG:[/] Warming up deuterium chamber...");
-                    Thread.Sleep(500);
-
-                    AnsiConsole.MarkupLine("[grey]LOG:[/] Generating antideuterium...");
-                    Thread.Sleep(500);
-
-                    AnsiConsole.MarkupLine("[grey]LOG:[/] Unfolding left warp nacelle...");
-
-                    ctx.Status("Unfolding warp nacelles...");
-                    ctx.Spinner(Spinner.Known.Dots5);
-                    Thread.Sleep(500);
-
-                    AnsiConsole.MarkupLine("[grey]LOG:[/] Left warp nacelle [green]online[/]...");
-                    AnsiConsole.MarkupLine("[grey]LOG:[/] Unfolding right warp nacelle...");
-                    Thread.Sleep(500);
-
-                    AnsiConsole.MarkupLine("[grey]LOG:[/] Right warp nacelle [green]online[/]...");
-                    ctx.Status("Generating warp bubble");
-                    Thread.Sleep(500);
-
-                    AnsiConsole.MarkupLine("[grey]LOG:[/] Enabling interior dampening..");
-                    ctx.Spinner(Spinner.Known.Clock);
-                    ctx.Status("Performing safety checks...");
-
-                    Thread.Sleep(500);
-                    AnsiConsole.MarkupLine("[grey]LOG:[/] Interior dampening [green]activated[/]...");
-                    AnsiConsole.MarkupLine("[grey]LOG:[/] Preparing for warp...");
-                    Thread.Sleep(500);
-
-                    ctx.Spinner(Spinner.Known.Star);
-                    for (var phase = 0M; phase <= 9.8M; phase += 1.4M)
-                    {
-                        Thread.Sleep(150);
-                        ctx.Status($"Warp {phase}...");
-                    }
-
-                    ctx.Spinner(Spinner.Known.Grenade);
-                    ctx.SpinnerStyle(Style.Parse("green"));
-                    ctx.Status("Cruising at warp 9.8...");
-                    Thread.Sleep(1000);
-                    ctx.Status("Press any key to start");
-                    System.Console.ReadKey();
-                });
-
-            // Create a table
-            var table = new Table();
-
-            // Add some columns
-            table.AddColumn("Info");
-            table.AddColumn("Explanation");
-            table.AddColumn("Example");
-
-            // Add some rows
-            table.AddRow("Short form",
-                         "This is the shortened form you use for your organization.",
-                         "[green]mcrs[/][grey]-stapp-devtest-euw-001.azurewebsites.net/[/]");
-            table.AddEmptyRow();
-            table.AddRow(
-                "Long form",
-                "Same as short form or optionally longer.",
-                "[green]microsoft[/][grey]-stapp-devtest-euw-001.azurewebsites.net/[/]");
-
-            table.Border = TableBorder.Ascii2;
-
-            // Render the table to the console
-            AnsiConsole.Write(table);
+            _azureRegionRepository = provider.GetRequiredService<IRepository<AzureRegion>>();
+            _azureResourceRepository = provider.GetRequiredService<IRepository<AzureResource>>();
+            _environmentRepository = provider.GetRequiredService<IRepository<Models.Environment>>();
         }
 
         private static IEntity RequestSelection(string question, IEnumerable<IEntity> collection)
@@ -213,15 +266,14 @@ namespace AzNameGenerator.Console
             }
 
             var selected = AnsiConsole.Prompt(prompt);
-
+            AnsiConsole.WriteLine($"Please select a resource: {selected}");
             return collectionArray.First(entity => string.Equals(entity.GetName(), selected));
         }
 
-        private static IEntity RequestInput(string questionName, string questionShortCode, string questionLongCode)
+        private static IEntity RequestInput(string questionShortCode, string questionLongCode)
         {
             var genericEntity = new GenericEntity();
 
-            genericEntity.SetName(AnsiConsole.Ask<string>(questionName));
             genericEntity.SetShortCode(AnsiConsole.Ask<string>(questionShortCode));
             genericEntity.SetLongCode(AnsiConsole.Ask<string>(questionLongCode));
 
