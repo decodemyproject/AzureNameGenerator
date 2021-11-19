@@ -100,8 +100,8 @@ namespace AzNameGenerator.Console
         {
             var organization =
                 RequestInput(
-                    questionShortCode: "Please enter your organization short form:",
-                    questionLongCode: "Please enter your organization long form:");
+                    questionShortCode: "Please enter your organization short format:",
+                    questionLongCode: "Please enter your organization long format:");
             collection.Add(organization);
         }
 
@@ -171,8 +171,26 @@ namespace AzNameGenerator.Console
                     System.Console.ReadKey();
                 });
 
-            WriteTable("[green]mcrs[/][grey]-stapp-devtest-euw-001.azurewebsites.net/[/]",
-                       "[green]microsoft[/][grey]-stapp-devtest-euw-001.azurewebsites.net/[/]");
+            WriteHorizontalRule();
+            var table = new Table
+            {
+                Title = new TableTitle("Color codes"),
+            };
+
+            table.AddColumn("Color");
+            table.AddColumn("Meaning");
+
+            table.AddRow("[green]green[/]", "Organization");
+            table.AddRow("[yellow]yellow[/]", "Resource");
+            table.AddRow("[blue]blue[/]", "Application");
+            table.AddRow("[teal]teal[/]", "Environment");
+            table.AddRow("[red]red[/]", "Region");
+            table.Border = TableBorder.Ascii;
+
+            AnsiConsole.Write(table);
+
+            WriteTable("[green]mcrs[/]-[yellow]stapp[/]-[blue]myapp[/]-[teal]devtest[/]-[red]euw[/][grey].azurewebsites.net[/]",
+                       "[green]microsoft[/]-[yellow]stapp[/]-[blue]myapplication[/]-[teal]devtest[/]-[red]euw[/][grey].azurewebsites.net[/]");
         }
 
         private static void WriteLogMessage(StatusContext ctx)
@@ -226,18 +244,13 @@ namespace AzNameGenerator.Console
         private static void WriteBanner()
         {
             AnsiConsole.Write(
-                new FigletText("Welcome to the")
+                new FigletText("Naming Convention Tool")
                     .LeftAligned()
-                    .Color(Color.Red));
-
-            AnsiConsole.Write(
-                new FigletText("Azure Naming Convention")
-                    .Centered()
                     .Color(Color.Green));
 
             AnsiConsole.Write(
-                new FigletText("tool")
-                    .RightAligned()
+                new FigletText("for Azure")
+                    .Centered()
                     .Color(Color.Blue));
         }
 
