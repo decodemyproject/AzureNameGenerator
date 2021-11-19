@@ -1,0 +1,657 @@
+﻿[
+  {
+    "Name": "API management service instance",
+    "ShortCode": "apim",
+    "Scope": "General"
+  },
+  {
+    "Name": "Managed Identity",
+    "ShortCode": "id",
+    "Scope": "General"
+  },
+  {
+    "Name": "Management group",
+    "ShortCode": "mg",
+    "Scope": "General"
+  },
+  {
+    "Name": "Policy definition",
+    "ShortCode": "policy",
+    "Scope": "General"
+  },
+  {
+    "Name": "Resource group",
+    "ShortCode": "rg",
+    "Scope": "General"
+  },
+  {
+    "Name": "Application gateway",
+    "ShortCode": "agw",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Application security group (ASG)",
+    "ShortCode": "asg",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Bastion",
+    "ShortCode": "bas",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "CDN profile",
+    "ShortCode": "cdnp",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "CDN endpoint",
+    "ShortCode": "cdne",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Connections",
+    "ShortCode": "con",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "DNS",
+    "ShortCode": "dnsz",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "DNS zone",
+    "ShortCode": "pdnsz",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Firewall",
+    "ShortCode": "afw",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Firewall policy",
+    "ShortCode": "afwp",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "ExpressRoute circuit",
+    "ShortCode": "erc",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Front Door instance",
+    "ShortCode": "fd",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Front Door firewall policy",
+    "ShortCode": "fdfp",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Load balancer (internal)",
+    "ShortCode": "lbi",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Load balancer (external)",
+    "ShortCode": "lbe",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Load balancer rule",
+    "ShortCode": "rule",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Local network gateway",
+    "ShortCode": "lgw",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "NAT gateway",
+    "ShortCode": "ng",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Network interface (NIC)",
+    "ShortCode": "nic",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Network security group (NSG)",
+    "ShortCode": "nsg",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Network security group (NSG) security rules",
+    "ShortCode": "nsgsr",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Network Watcher",
+    "ShortCode": "nw",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Public IP address",
+    "ShortCode": "pip",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Public IP address prefix",
+    "ShortCode": "ippre",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Route filter",
+    "ShortCode": "rf",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Route table",
+    "ShortCode": "rt",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Service endpoint",
+    "ShortCode": "se",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Traffic Manager profile",
+    "ShortCode": "traf",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "User defined route (UDR)",
+    "ShortCode": "udr",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Virtual network",
+    "ShortCode": "vnet",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Virtual network peering",
+    "ShortCode": "peer",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Virtual network subnet",
+    "ShortCode": "snet",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Virtual WAN",
+    "ShortCode": "vwan",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "VPN Gateway",
+    "ShortCode": "vpng",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "VPN connection",
+    "ShortCode": "vcn",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "VPN site",
+    "ShortCode": "vst",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Virtual network gateway",
+    "ShortCode": "vgw",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Web Application Firewall (WAF) policy",
+    "ShortCode": "waf",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "Web Application Firewall (WAF) policy rule group",
+    "ShortCode": "wafrg",
+    "Scope": "Networking"
+  },
+  {
+    "Name": "App Service environment",
+    "ShortCode": "ase",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "App Service plan",
+    "ShortCode": "plan",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Availability set",
+    "ShortCode": "avail",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Azure Arc enabled server",
+    "ShortCode": "arcs",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Azure Arc enabled Kubernetes cluster",
+    "ShortCode": "arck",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Cloud service",
+    "ShortCode": "cld",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Disk encryption set",
+    "ShortCode": "des",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Function app",
+    "ShortCode": "func",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Gallery",
+    "ShortCode": "gal",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Managed disk (OS)",
+    "ShortCode": "osdisk",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Managed disk (data)",
+    "ShortCode": "disk",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Notification Hubs",
+    "ShortCode": "ntf",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Notification Hubs namespace",
+    "ShortCode": "ntfns",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Snapshot",
+    "ShortCode": "snap",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Static web app",
+    "ShortCode": "stapp",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Virtual machine",
+    "ShortCode": "vm",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Virtual machine scale set",
+    "ShortCode": "vmss",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "VM storage account",
+    "ShortCode": "stvm",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "Web app",
+    "ShortCode": "app",
+    "Scope": "Compute & Web"
+  },
+  {
+    "Name": "AKS cluster",
+    "ShortCode": "aks",
+    "Scope": "Containers"
+  },
+  {
+    "Name": "Container registry",
+    "ShortCode": "cr",
+    "Scope": "Containers"
+  },
+  {
+    "Name": "Container instance",
+    "ShortCode": "ci",
+    "Scope": "Containers"
+  },
+  {
+    "Name": "Service Fabric cluster",
+    "ShortCode": "sf",
+    "Scope": "Containers"
+  },
+  {
+    "Name": "Azure Cosmos DB database",
+    "ShortCode": "cosmos",
+    "Scope": "Databases"
+  },
+  {
+    "Name": "Azure Cache for Redis instance",
+    "ShortCode": "redis",
+    "Scope": "Databases"
+  },
+  {
+    "Name": "Azure SQL Database server",
+    "ShortCode": "sql",
+    "Scope": "Databases"
+  },
+  {
+    "Name": "Azure SQL database",
+    "ShortCode": "sqldb",
+    "Scope": "Databases"
+  },
+  {
+    "Name": "Azure Synapse Analytics",
+    "ShortCode": "syn",
+    "Scope": "Databases"
+  },
+  {
+    "Name": "Azure Synapse Analytics Workspaces",
+    "ShortCode": "synw",
+    "Scope": "Databases"
+  },
+  {
+    "Name": "Azure Synapse Analytics SQL Dedicated Pool",
+    "ShortCode": "syndp",
+    "Scope": "Databases"
+  },
+  {
+    "Name": "Azure Synapse Analytics Spark Pool",
+    "ShortCode": "synsp",
+    "Scope": "Databases"
+  },
+  {
+    "Name": "MySQL database",
+    "ShortCode": "mysql",
+    "Scope": "Databases"
+  },
+  {
+    "Name": "PostgreSQL database",
+    "ShortCode": "psql",
+    "Scope": "Databases"
+  },
+  {
+    "Name": "SQL Server Stretch Database",
+    "ShortCode": "sqlstrdb",
+    "Scope": "Databases"
+  },
+  {
+    "Name": "SQL Managed Instance",
+    "ShortCode": "sqlmi",
+    "Scope": "Databases"
+  },
+  {
+    "Name": "Storage account",
+    "ShortCode": "st",
+    "Scope": "Storage"
+  },
+  {
+    "Name": "Azure StorSimple",
+    "ShortCode": "ssimp",
+    "Scope": "Storage"
+  },
+  {
+    "Name": "Asset type",
+    "ShortCode": "Abbreviation",
+    "Scope": "Storage"
+  },
+  {
+    "Name": "Azure Cognitive Search",
+    "ShortCode": "srch",
+    "Scope": "Storage"
+  },
+  {
+    "Name": "Azure Cognitive Services",
+    "ShortCode": "cog",
+    "Scope": "Storage"
+  },
+  {
+    "Name": "Azure Machine Learning workspace",
+    "ShortCode": "mlw",
+    "Scope": "Storage"
+  },
+  {
+    "Name": "Azure Analysis Services server",
+    "ShortCode": "as",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Azure Databricks workspace",
+    "ShortCode": "dbw",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Azure Stream Analytics",
+    "ShortCode": "asa",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Azure Data Explorer cluster",
+    "ShortCode": "dec",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Azure Data Explorer cluster database",
+    "ShortCode": "dedb",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Azure Data Factory",
+    "ShortCode": "adf",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Data Lake Store account",
+    "ShortCode": "dls",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Data Lake Analytics account",
+    "ShortCode": "dla",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Event Hubs namespace",
+    "ShortCode": "evhns",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Event hub",
+    "ShortCode": "evh",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Event Grid domain",
+    "ShortCode": "evgd",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Event Grid subscriptions",
+    "ShortCode": "evgs",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Event Grid topic",
+    "ShortCode": "evgt",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "HDInsight - Hadoop cluster",
+    "ShortCode": "hadoop",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "HDInsight - HBase cluster",
+    "ShortCode": "hbase",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "HDInsight - Kafka cluster",
+    "ShortCode": "kafka",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "HDInsight - Spark cluster",
+    "ShortCode": "spark",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "HDInsight - Storm cluster",
+    "ShortCode": "storm",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "HDInsight - ML Services cluster",
+    "ShortCode": "mls",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "IoT hub",
+    "ShortCode": "iot",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Provisioning services",
+    "ShortCode": "provs",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Provisioning services certificate",
+    "ShortCode": "pcert",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Power BI Embedded",
+    "ShortCode": "pbi",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Time Series Insights environment",
+    "ShortCode": "tsi",
+    "Scope": "Analytics and IoT"
+  },
+  {
+    "Name": "Virtual desktop host pool",
+    "ShortCode": "vdpool",
+    "Scope": "Azure virtual desktop"
+  },
+  {
+    "Name": "Virtual desktop application group",
+    "ShortCode": "vdag",
+    "Scope": "Azure virtual desktop"
+  },
+  {
+    "Name": "Virtual desktop workspace",
+    "ShortCode": "vdws",
+    "Scope": "Azure virtual desktop"
+  },
+  {
+    "Name": "App Configuration store",
+    "ShortCode": "appcs",
+    "Scope": "Developer Tools"
+  },
+  {
+    "Name": "SignalR",
+    "ShortCode": "sigr",
+    "Scope": "Developer Tools"
+  },
+  {
+    "Name": "Integration account",
+    "ShortCode": "ia",
+    "Scope": "Integration"
+  },
+  {
+    "Name": "Logic apps",
+    "ShortCode": "logic",
+    "Scope": "Integration"
+  },
+  {
+    "Name": "Service Bus",
+    "ShortCode": "sb",
+    "Scope": "Integration"
+  },
+  {
+    "Name": "Service Bus queue",
+    "ShortCode": "sbq",
+    "Scope": "Integration"
+  },
+  {
+    "Name": "Service Bus topic",
+    "ShortCode": "sbt",
+    "Scope": "Integration"
+  },
+  {
+    "Name": "Automation account",
+    "ShortCode": "aa",
+    "Scope": "Management and governance"
+  },
+  {
+    "Name": "Application Insights",
+    "ShortCode": "appi",
+    "Scope": "Management and governance"
+  },
+  {
+    "Name": "Azure Monitor action group",
+    "ShortCode": "ag",
+    "Scope": "Management and governance"
+  },
+  {
+    "Name": "Azure Purview instance",
+    "ShortCode": "pview",
+    "Scope": "Management and governance"
+  },
+  {
+    "Name": "Blueprint",
+    "ShortCode": "bp",
+    "Scope": "Management and governance"
+  },
+  {
+    "Name": "Blueprint assignment",
+    "ShortCode": "bpa",
+    "Scope": "Management and governance"
+  },
+  {
+    "Name": "Key vault",
+    "ShortCode": "kv",
+    "Scope": "Management and governance"
+  },
+  {
+    "Name": "Log Analytics workspace",
+    "ShortCode": "log",
+    "Scope": "Management and governance"
+  },
+  {
+    "Name": "Asset type",
+    "ShortCode": "Abbreviation",
+    "Scope": "Migration"
+  },
+  {
+    "Name": "Azure Migrate project",
+    "ShortCode": "migr",
+    "Scope": "Migration"
+  },
+  {
+    "Name": "Database Migration Service instance",
+    "ShortCode": "dms",
+    "Scope": "Migration"
+  },
+  {
+    "Name": "Recovery Services vault",
+    "ShortCode": "rsv",
+    "Scope": "Migration"
+  }
+]
