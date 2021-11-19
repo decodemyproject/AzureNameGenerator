@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AzNameGenerator.Models
+﻿namespace AzNameGenerator.Models
 {
     public class Environment : IEntity
     {

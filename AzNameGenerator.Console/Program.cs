@@ -9,7 +9,6 @@ using AzNameGenerator.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Spectre.Console;
-using Environment = System.Environment;
 
 namespace AzNameGenerator.Console
 {
